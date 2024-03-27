@@ -1,19 +1,29 @@
 package stepDefs;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import base.TestBase;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import locators.placeorderpage;
 
 public class placeorder {
-	WebDriver driver = new ChromeDriver();
+	WebDriver driver;
+	placeorderpage orderpage;
+	
+	//WebDriver driver = new ChromeDriver();
 	@Given("User is on homepage")
 	public void user_is_on_homepage() {
-		driver.get("https://tutorialsninja.com/demo/");
+		TestBase.initDriver();
+		driver=TestBase.getDriver();
+		orderpage = new placeorderpage(driver);
+		orderpage.openApp();
+		//driver.get("https://tutorialsninja.com/demo/");
 	    // Write code here that turns the phrase above into concrete actions
 	    //throw new io.cucumber.java.PendingException();
 	}
@@ -21,7 +31,7 @@ public class placeorder {
 	@When("User search an item {string}")
 	public void user_search_an_item(String string) {
 		
-		driver.findElement(By.name("search")).click();
+ 	    driver.findElement(By.name("search")).click();
 		driver.findElement(By.name("search")).sendKeys(string);
 		driver.findElement(By.name("search")).sendKeys(Keys.ENTER);
 		
@@ -31,6 +41,11 @@ public class placeorder {
 
 	@Then("Item must be listed")
 	public void item_must_be_listed() {
+		
+		String searchcriteria = "Search - Macbook Air";
+		Assert.assertEquals(searchcriteria,driver.getTitle());
+		
+		
 	    // Write code here that turns the phrase above into concrete actions
 	   // throw new io.cucumber.java.PendingException();
 	}

@@ -5,7 +5,7 @@ Feature: Place order
   Scenario: Search single item 
     Given User is on homepage
     When User search an item "Macbook Air"
-    Then Item must be listed
+    Then Item must be listed 
 
   Scenario: Add Item to cart
     Given User should be on Search Result page
